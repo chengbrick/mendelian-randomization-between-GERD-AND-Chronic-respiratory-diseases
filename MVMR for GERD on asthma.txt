@@ -1,0 +1,42 @@
+rm(list = ls())
+library(MRInstruments) 
+library(TwoSampleMR)
+library(googleAuthR)
+library(data.table)
+
+###Adjusted for Smoking initiation
+exposure_dat <- extract_instruments(c('ieu-b-4877','ebi-a-GCST007431'))#'ebi-a-GCST007431' is the dataset ID of GERD. 
+exposure_dat <- clump_data(exposure_dat)
+
+###Adjusted for Smoking status(Current)
+exposure_dat <- extract_instruments(c('ukb-a-225','ebi-a-GCST007431')) 
+exposure_dat <- clump_data(exposure_dat)
+
+###Adjusted for Exposure to tobacco smoke outside home
+exposure_dat <- extract_instruments(c('ukb-a-20','ebi-a-GCST007431'))
+exposure_dat <- clump_data(exposure_dat)
+
+t2d <-fread('FIN COPD.txt',header=T) 
+t2d$phenotype <- 'chronic obstructive pulmonary disease' 
+t2d_out <- format_data(
+  dat=t2d,
+  type = "outcome",
+  snps = exposure_dat$SNP,
+  header = TRUE,
+  phenotype_col = "phenotype",
+  snp_col = "rsids",
+  beta_col = "beta",
+  se_col = "sebeta",
+  effect_allele_col = "alt",
+  other_allele_col = "ref",
+  pval_col = "pval",
+  chr_col = "#chrom",
+  pos_col = "pos",
+  eaf_col="af_alt"
+)
+
+oucome_dat <- extract_outcome_data(exposure_dat$SNP, id_outcome) 
+
+mvdat <- mv_harmonise_data(exposure_dat,t2d_out) 
+res <- mv_multiple(mvdat) 
+res
