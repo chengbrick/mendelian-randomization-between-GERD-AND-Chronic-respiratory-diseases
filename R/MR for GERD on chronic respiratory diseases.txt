@@ -31,8 +31,8 @@ generate_odds_ratios(mr_results)
 OR<-generate_odds_ratios(mr_results)
 
 ###the summary data of IPF can be downloaded from https://github.com/genomicsITER/PFgenetics.
-t2d <-fread('IPF META GWAS.txt',header=T) # 使用fread()快速读取大文件
-t2d$phenotype <- 'Idiopathic pulmonary fibrosis' # 添加phenotype列
+t2d <-fread('IPF META GWAS.txt',header=T)
+t2d$phenotype <- 'Idiopathic pulmonary fibrosis' 
 t2d_out <- format_data(
   dat=t2d,
   type = "outcome",
@@ -53,8 +53,8 @@ generate_odds_ratios(mr_results)
 OR<-generate_odds_ratios(mr_results)
 
 ###the summary data of COPD, chronic bronchitis and can be downloaded from https://www.finngen.fi/fi/hyodynna_tuloksia
-t2d <-fread('FIN COPD.txt',header=T) # 使用fread()快速读取大文件
-t2d$phenotype <- 'chronic obstructive pulmonary disease' # 添加phenotype列
+t2d <-fread('FIN COPD.txt',header=T) 
+t2d$phenotype <- 'chronic obstructive pulmonary disease' 
 t2d_out <- format_data(
   dat=t2d,
   type = "outcome",
@@ -75,8 +75,8 @@ mr_results <- mr(dat)
 generate_odds_ratios(mr_results) 
 OR<-generate_odds_ratios(mr_results)
 
-t2d <-fread('FIN bronchitis.txt',header=T) # 使用fread()快速读取大文件
-t2d$phenotype <- 'chronic bronchitis' # 添加phenotype列
+t2d <-fread('FIN bronchitis.txt',header=T) 
+t2d$phenotype <- 'chronic bronchitis' 
 t2d_out <- format_data(
   dat=t2d,
   type = "outcome",
@@ -97,8 +97,8 @@ mr_results <- mr(dat)
 generate_odds_ratios(mr_results) 
 OR<-generate_odds_ratios(mr_results)
 
-t2d <-fread('FIN Bronchiectasis.txt',header=T) # 使用fread()快速读取大文件
-t2d$phenotype <- 'Bronchiectasis' # 添加phenotype列
+t2d <-fread('FIN Bronchiectasis.txt',header=T) 
+t2d$phenotype <- 'Bronchiectasis' 
 t2d_out <- format_data(
   dat=t2d,
   type = "outcome",
